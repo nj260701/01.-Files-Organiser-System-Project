@@ -5,24 +5,12 @@ const path = require('path')
 
 
 let types = {
-  media: ["mp4", "mkv", "mp3", "jpg", "jpeg", "png"],
-  archives: ["zip", "7z", "rar", "tar", "gz", "ar", "iso", "xz"],
-  documents: [
-    "docx",
-    "doc",
-    "pdf",
-    "xlsx",
-    "xls",
-    "odt",
-    "ods",
-    "odp",
-    "odg",
-    "odf",
-    "txt",
-    "ps",
-    "tex",
-  ],
-  app: ["exe", "dmg", "pkg", "deb"],
+  Images: ["jpg", "jpeg", "png"],
+  Music: ["mp3", "WAV", 'AAC'],
+  Videos: ["mp4", "MKV"],
+  Documents: ["docx", "doc", "pdf", "xlsx", "xls", "odt", "ods", "odp", "odg", "odf", "txt", "ps", "tex",],
+  Archives: ["zip", "7z", "rar", "tar", "gz", "ar", "iso", "xz"],
+  App: ["exe", "dmg", "pkg", "deb"],
 };
 
 
@@ -40,11 +28,12 @@ function organizeFn(dirpath) {
     if (doesExist == true) {
       destPath = path.join(dirpath, "organizedFiles");
       // so first I will have to make a path for a folder
-      //D:\Batches\FJP-8\3_NodeJS\test Folder\organizedFiles
+
       if (fs.existsSync(destPath) == false) {
-        fs.mkdirSync(destPath); // we will only create a folder if it does not already exists
+        fs.mkdirSync(destPath);
+        // we will only create a folder if it does not already exists
       } else {
-        // console.log("Folder already exists");
+        console.log("Folder already exists");
       }
     } else {
       console.log("Please enter a valid Path");
@@ -59,7 +48,8 @@ function organizeHelper(src, dest) {
   // console.log(childNames);
 
   for (let i = 0; i < childNames.length; i++) {
-    let childAddress = path.join(src, childNames[i]); // path is identified for all children
+    let childAddress = path.join(src, childNames[i]);
+    // path is identified for all children
     let checkForFile = fs.lstatSync(childAddress).isFile();
     // console.log(childAddress + " " + checkForFile);
 
@@ -91,7 +81,8 @@ function getCategory(fileName) {
 }
 
 function sendFiles(srcFilePath, dest, fileCategory) {
-  let catPath = path.join(dest, fileCategory); // here we are making categoryPath to create folders
+  let catPath = path.join(dest, fileCategory);
+  // here we are making categoryPath to create folders
 
   if (fs.existsSync(catPath) == false) {
     // check for if the category folder Alredy Exists
@@ -105,7 +96,7 @@ function sendFiles(srcFilePath, dest, fileCategory) {
 
   fs.unlinkSync(srcFilePath); // deleted the files from the source
 
-  console.log(fileName + " Copied to " + fileCategory);
+  console.log(fileName + " Moves to " + fileCategory);
 }
 
 
